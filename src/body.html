@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./url.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    ul{
+        list-style: none;
+        display: flex;
+    }
+    li{
+        text-decoration: underline;
+        list-style: none;
+    }
+    iframe{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+    <ul id="pageTab"></ul>
+    <iframe id="pageBody" frameborder="0" src="https://weread.qq.com/web/reader/1e432b307256a96e1e41c95">点击</iframe>
+</body>
+<script>
+    let urlLis = '';
+    urlLists.forEach(item => {
+        urlLis += `<li onclick="changeUrl('${ item.url }')">${ item.name }</li>`
+    })
+    document.getElementById("pageTab").innerHTML = urlLis;
+
+    function changeUrl(url){
+        console.log(url);
+        document.getElementById("pageBody").src = url;
+    }
+</script>
+</html>
+        
