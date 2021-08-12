@@ -1,12 +1,19 @@
 var urlLists = [
     {
-        "name": "A",
-        "url": "aaa"
+        "name": "Vue Doc",
+        "url": "https://cn.vuejs.org/"
     },{
-        "name": "百度",
-        "url": "https://baidu.com"
+        "name": "Vite Doc",
+        "url": "https://vitejs.dev/"
+    },{
+        "name": "Nodejs Doc",
+        "url": "http://nodejs.cn/api/console.html"
+    },{
+        "name": "ES6 Doc",
+        "url": "https://es6.ruanyifeng.com/"
     },{
         "name": "微信读书",
         "url": "https://weread.qq.com"
-    }
+    },
+    
 ]

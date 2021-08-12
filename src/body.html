@@ -11,15 +11,22 @@
 <style>
     ul{
         list-style: none;
-        display: flex;
+        display: table;
+        width: 100%;
     }
     li{
         text-decoration: underline;
         list-style: none;
+        float: left;
+        width: 16.6%;
+        box-sizing: border-box;
+        padding: 10px 0;
+        text-align: center;
+        cursor: pointer;
     }
     iframe{
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
 </style>
 <body>
@@ -27,12 +34,39 @@
     <iframe id="pageBody" frameborder="0" src="https://weread.qq.com/web/reader/1e432b307256a96e1e41c95">点击</iframe>
 </body>
 <script>
-    let urlLis = '';
-    urlLists.forEach(item => {
-        urlLis += `<li onclick="changeUrl('${ item.url }')">${ item.name }</li>`
-    })
-    document.getElementById("pageTab").innerHTML = urlLis;
+    console.log(urlLists);
+    // 从远端获取地址
+    function loadXMLDoc()
+    {
+        var xmlHttp;
+        if (window.XMLHttpRequest){
+            xmlHttp = new XMLHttpRequest();
+        }
+        else{       
+            xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttp.onreadystatechange=function(){
+            console.log(xmlHttp.status);
+            if (xmlHttp.readyState == 4 && xmlHttp.status==200)
+            {
+                console.log(xmlHttp.responseText);
+                
+                // document.getElementById("myDiv").innerHTML=xmlHttp.responseText;
+            }
+        }
+        xmlHttp.open("GET","https://gitee.com/wsuner/vscode/blob/master/url.js",true);
+        xmlHttp.send();
+    }
 
+    function setUiEl(){
+        let urlLis = '';
+        urlLists.forEach(item => {
+            urlLis += `<li onclick="changeUrl('${ item.url }')">${ item.name }</li>`
+        })
+        document.getElementById("pageTab").innerHTML = urlLis;
+    }
+    // loadXMLDoc();
+    setUiEl();
     function changeUrl(url){
         console.log(url);
         document.getElementById("pageBody").src = url;
