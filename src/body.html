@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./url.js"></script>
+    <!-- <script src="./url.js"></script> -->
+    <script src="./Bmob-1.6.1.min.js"></script>
     <title>Document</title>
 </head>
 <style>
@@ -34,39 +35,30 @@
     <iframe id="pageBody" frameborder="0" src="https://weread.qq.com/web/reader/1e432b307256a96e1e41c95">点击</iframe>
 </body>
 <script>
-    console.log(urlLists);
+    const appId = '4a9036281410069e8340cb592a5dfd22';
+    const appKey = '1b7b66005f44193da28ee1cb7f243ee6';
+    const secretKey = '37fca966fb1487fb';
+    const masterKey = '159fdd331c63784bead64d2017cd745d';
+
+    Bmob.initialize(appId, appKey);
+
+    loadUrlLists();
     // 从远端获取地址
-    function loadXMLDoc()
+    function loadUrlLists()
     {
-        var xmlHttp;
-        if (window.XMLHttpRequest){
-            xmlHttp = new XMLHttpRequest();
-        }
-        else{       
-            xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlHttp.onreadystatechange=function(){
-            console.log(xmlHttp.status);
-            if (xmlHttp.readyState == 4 && xmlHttp.status==200)
-            {
-                console.log(xmlHttp.responseText);
-                
-                // document.getElementById("myDiv").innerHTML=xmlHttp.responseText;
-            }
-        }
-        xmlHttp.open("GET","https://gitee.com/wsuner/vscode/blob/master/url.js",true);
-        xmlHttp.send();
+        const query = Bmob.Query("urls");
+        query.find().then(res => {
+            setUiEl(res)
+        });
     }
 
-    function setUiEl(){
+    function setUiEl(urlLists){
         let urlLis = '';
         urlLists.forEach(item => {
             urlLis += `<li onclick="changeUrl('${ item.url }')">${ item.name }</li>`
         })
         document.getElementById("pageTab").innerHTML = urlLis;
     }
-    // loadXMLDoc();
-    setUiEl();
     function changeUrl(url){
         console.log(url);
         document.getElementById("pageBody").src = url;

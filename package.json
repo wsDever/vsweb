@@ -1,11 +1,17 @@
 {
   "name": "vsweb",
-	"displayName": "vsweb",
+	"displayName": "WSWeb",
 	"description": "web browers",
 	"version": "0.0.1",
+	"publisher": "wushang",
 	"engines": {
 		"vscode": "^1.46.0"
 	},
+	"icon": "logo.png",
+    "repository": {
+        "type": "git",
+		"url": "https://github.com/wsDever/vsweb.git"
+    },
 	"categories": [
 		"Other"
 	],
