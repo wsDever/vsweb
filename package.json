@@ -1,9 +1,10 @@
 {
-  "name": "vsweb",
+  	"name": "vsweb",
 	"displayName": "WSWeb",
-	"description": "web browers",
+	"description": "a web browers in vscode",
 	"version": "0.0.1",
 	"publisher": "wushang",
+	"keywords":["vscode","web","plugin"],
 	"engines": {
 		"vscode": "^1.46.0"
 	},
@@ -22,9 +23,16 @@
 	"contributes": {
 		"commands": [{
             "command": "vsweb.openWsWeb",
-            "title": "WSWeb"
-
-		}]
+            "title": "WSWeb",
+			"icon": "./logo.png"
+		}],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "vsweb.openWsWeb"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"lint": "eslint .",

@@ -10,6 +10,53 @@
     <title>Document</title>
 </head>
 <style>
+        /* 浅色主题 */
+    body.vscode-light {
+        background: white;
+        color: black;
+    }
+    /* 深色主题 */
+    body.vscode-dark {
+        background: #252526;
+        color: white;
+    }
+    /* 高对比度主题 */
+    body.vscode-high-contrast {
+        background: white;
+        color: red;
+    }
+    
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #d8dce5
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #adadad
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #929292
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background-color: #666363
+    }
+
+    ::-webkit-scrollbar-corner {
+        background-color: #535353
+    }
+
+    ::-webkit-scrollbar-resizer {
+        background-color: #ff6e00
+    }
+    
     ul{
         list-style: none;
         display: table;
@@ -25,22 +72,30 @@
         text-align: center;
         cursor: pointer;
     }
+    html, body {
+        width: calc(100vw - 70px);
+        height: calc(100vh - 50px);
+    }
     iframe{
-        width: 100vw;
-        height: 100vh;
+        width: calc(100vw - 30px);
+        height: auto;
     }
 </style>
 <body>
     <ul id="pageTab"></ul>
-    <iframe id="pageBody" frameborder="0" src="https://weread.qq.com/web/reader/1e432b307256a96e1e41c95">点击</iframe>
+    <iframe id="pageBody" frameborder="0" src="https://weread.qq.com/web/reader/1e432b307256a96e1e41c95"></iframe>
 </body>
 <script>
     const appId = '4a9036281410069e8340cb592a5dfd22';
     const appKey = '1b7b66005f44193da28ee1cb7f243ee6';
     const secretKey = '37fca966fb1487fb';
     const masterKey = '159fdd331c63784bead64d2017cd745d';
-
+    
     Bmob.initialize(appId, appKey);
+
+    const _tabEl = document.getElementById("pageTab");
+    const _ifrEl = document.getElementById("pageBody");
+    
 
     loadUrlLists();
     // 从远端获取地址
@@ -54,14 +109,17 @@
 
     function setUiEl(urlLists){
         let urlLis = '';
+        let len = Math.ceil(urlLists.length / 6) ;
         urlLists.forEach(item => {
             urlLis += `<li onclick="changeUrl('${ item.url }')">${ item.name }</li>`
         })
-        document.getElementById("pageTab").innerHTML = urlLis;
+        _tabEl.innerHTML = urlLis;
+
+        _ifrEl.setAttribute('style', `height: calc(100vh - ${ 36 * len + 32 }px)`)
     }
     function changeUrl(url){
         console.log(url);
-        document.getElementById("pageBody").src = url;
+        _ifrEl.src = url;
     }
 </script>
 </html>
