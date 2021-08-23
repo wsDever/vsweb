@@ -26,41 +26,12 @@
         color: red;
     }
     
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px
-    }
-
-    ::-webkit-scrollbar-track {
-        border-radius: 10px;
-        background-color: #d8dce5
-    }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background-color: #adadad
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: #929292
-    }
-
-    ::-webkit-scrollbar-thumb:active {
-        background-color: #666363
-    }
-
-    ::-webkit-scrollbar-corner {
-        background-color: #535353
-    }
-
-    ::-webkit-scrollbar-resizer {
-        background-color: #ff6e00
-    }
-    
     ul{
         list-style: none;
         display: table;
-        width: 100%;
+        width: 100vw;
+        box-sizing: border-box;
+        padding: 0 50px;
     }
     li{
         text-decoration: underline;
@@ -73,15 +44,34 @@
         cursor: pointer;
     }
     html, body {
-        width: calc(100vw - 70px);
-        height: calc(100vh - 50px);
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        padding: 0;
     }
     iframe{
-        width: calc(100vw - 30px);
+        width: 100vw;
         height: auto;
+    }
+    #pageHeader{
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 14px;
+        color: #e5e5e5;
+        width: 40px;
+        position: absolute;
+        z-index: 99;
+        background: #27282a;
+        bottom: 16px;
+        right: 16px;
+        border-radius: 50%;
+        cursor: pointer;
     }
 </style>
 <body>
+    <div id="pageHeader" onclick="toggleShowTab()">全</div>
     <ul id="pageTab"></ul>
     <iframe id="pageBody" frameborder="0" src="https://weread.qq.com/web/reader/1e432b307256a96e1e41c95"></iframe>
 </body>
@@ -91,10 +81,13 @@
     const secretKey = '37fca966fb1487fb';
     const masterKey = '159fdd331c63784bead64d2017cd745d';
     
+    var show = true;
+    
     Bmob.initialize(appId, appKey);
-
+    
     const _tabEl = document.getElementById("pageTab");
     const _ifrEl = document.getElementById("pageBody");
+    var _tabH = 0;
     
 
     loadUrlLists();
@@ -114,12 +107,24 @@
             urlLis += `<li onclick="changeUrl('${ item.url }')">${ item.name }</li>`
         })
         _tabEl.innerHTML = urlLis;
-
-        _ifrEl.setAttribute('style', `height: calc(100vh - ${ 36 * len + 32 }px)`)
+        show = true;
+        _tabH = `height: calc(100vh - ${ 36 * len + 27 }px)`;
+        _ifrEl.setAttribute('style', _tabH);
     }
     function changeUrl(url){
         console.log(url);
         _ifrEl.src = url;
+    }
+    function toggleShowTab(){
+        show = !show ;
+        if(!show){
+            _tabEl.setAttribute('style', 'display: none');
+            _ifrEl.setAttribute('style', `height: 100vh`);
+        }else{
+            _tabEl.setAttribute('style', 'display: table');
+            _ifrEl.setAttribute('style', _tabH);
+
+        }
     }
 </script>
 </html>
